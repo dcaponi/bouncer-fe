@@ -5,7 +5,8 @@ import SubmitButton from './SubmitButton';
 class SignupForm extends Component {
   handleSubmit(event){
     event.preventDefault();
-    fetch('https://api.bouncer.developerdom.com/users', {
+    fetch('http://localhost:3000/users', {
+    // fetch('https://api.bouncer.developerdom.com/users', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
