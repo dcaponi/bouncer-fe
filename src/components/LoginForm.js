@@ -5,8 +5,7 @@ import SubmitButton from './SubmitButton';
 class LoginForm extends Component {
   handleSubmit(event){
     event.preventDefault();
-    fetch( 'http://localhost:3000/tokens', {
-    // fetch( 'https://api.bouncer.developerdom.com/tokens', {
+    fetch( 'https://api.bouncer.developerdom.com/tokens', {
       method: 'POST',
       credentials: 'include',
       crossDomain: true,
