@@ -5,6 +5,7 @@ import SubmitButton from './SubmitButton';
 class SignupForm extends Component {
   handleSubmit(event){
     event.preventDefault();
+    // fetch('http://localhost/users', {
     fetch('https://api.bouncer.developerdom.com/users', {
       method: 'POST',
       headers: {
@@ -16,7 +17,8 @@ class SignupForm extends Component {
           email: event.target.children.emailAddress.value,
           password: event.target.children.password.value,
           password_confirmation: event.target.children.passwordConfirm.value,
-        }
+          redirect_url: "https://bouncer.developerdom.com"
+        },
       })
     }).then((res) => {
       return res.json()
