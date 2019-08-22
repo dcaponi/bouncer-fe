@@ -13,7 +13,7 @@ class App extends Component {
 
   componentDidMount(){
     // fetch('http://localhost:3000/user', {
-      fetch('https://api.bouncer.developerdom.com/users', {
+      fetch('https://bouncer.api.developerdom.com/users', {
       credentials: 'include'
     })
       .then((res)=>{

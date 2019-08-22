@@ -8,7 +8,7 @@ class SplashPage extends Component {
   handleLogin(event){
     event.preventDefault();
     // fetch('http://localhost:3000/tokens', {
-    fetch( 'https://api.bouncer.developerdom.com/tokens', {
+    fetch( 'https://bouncer.api.developerdom.com/tokens', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -31,7 +31,7 @@ class SplashPage extends Component {
   handleSignup(event){
     event.preventDefault();
     // fetch('http://localhost:3000/users', {
-    fetch('https://api.bouncer.developerdom.com/users', {
+    fetch('https://bouncer.api.developerdom.com/users', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
