@@ -5,10 +5,12 @@ import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
 class SplashPage extends Component {
+  bouncerUrl = process.env.REACT_APP_BOUNCER_URL;
+
   handleLogin(event){
     event.preventDefault();
-    // fetch('http://localhost:3000/tokens', {
-    fetch( 'https://bouncer.api.developerdom.com/tokens', {
+
+    fetch(`${this.bouncerUrl}/tokens`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -30,8 +32,7 @@ class SplashPage extends Component {
 
   handleSignup(event){
     event.preventDefault();
-    // fetch('http://localhost:3000/users', {
-    fetch('https://bouncer.api.developerdom.com/users', {
+    fetch(`${this.bouncerUrl}/users`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

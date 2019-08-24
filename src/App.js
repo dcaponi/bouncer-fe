@@ -7,17 +7,18 @@ import PrivateRoute from './components/private_route/PrivateRoute';
 import './App.css';
 
 class App extends Component {
+  bouncerUrl = process.env.REACT_APP_BOUNCER_URL
+
   state = {
     isAuthenticated: false
   }
 
   componentDidMount(){
-    // fetch('http://localhost:3000/user', {
-      fetch('https://bouncer.api.developerdom.com/users', {
-      credentials: 'include'
-    })
+      fetch(`${this.bouncerUrl}/user`, {
+        credentials: 'include'
+      })
       .then((res)=>{
-        if(res.status == 201) {
+        if(res.status === 201) {
           this.setState({isAuthenticated: true})
         }
       })
