@@ -16,7 +16,7 @@
     "start": "PORT=8080 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "deploy": "aws s3 sync build/ s3://bouncer.developerdom.com",
+    "deploy": "export AWS_PROFILE=prod-frontend && aws s3 sync build/ s3://bouncer.developerdom.com",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
