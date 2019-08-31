@@ -1,13 +1,25 @@
 import React from 'react';
 import { Redirect } from "react-router-dom";
-import withAuth from '../hoc/withAuth';
+import { connect } from "react-redux";
 
 const Profile = (props) => {
-  return (
-    <h1>check out my dope ass page</h1>
-  );
+  if( props.isAuthenticated && props.currentUser ) {
+    return (
+      <h1>Welcome {props.currentUser.name_first} {props.currentUser.name_last}</h1>
+    );
+  }
+  else {
+    return <Redirect to="/login" />
+  }
 }
 
-const AuthedProfile = withAuth(Profile)
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.isAuthenticated,
+    currentUser: state.currentUser
+  }
+};
+
+const AuthedProfile = connect(mapStateToProps)(Profile)
 
 export default AuthedProfile;

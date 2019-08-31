@@ -2,42 +2,36 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 import SplashPage from './components/splash_page/SplashPage';
 import Profile from './components/profile/Profile';
+import { connect } from "react-redux";
+import { setUser } from "./redux/actions"
 
 import './App.css';
 
 class App extends Component {
   constructor(props){
     super(props);
-    this.checkAuthenticated()
+    this.getCurrentUser()
   }
 
-  bouncerUrl = process.env.REACT_APP_BOUNCER_URL
-
-  state = {
-    isAuthenticated: false,
-    currentUser: null
-  }
-
-  checkAuthenticated = () => {
-    fetch(`${this.bouncerUrl}/user`, {
+  getCurrentUser = () => {
+    let bouncerUrl = process.env.REACT_APP_BOUNCER_URL;
+    fetch(`${bouncerUrl}/user`, {
       credentials: 'include'
     })
-    .then((res)=>{
-      if(res.status === 200) {
-        this.setState({isAuthenticated: true})
-      }
-      return res.json();
-    })
+    .then((res) => res.json())
     .then((res) => {
-      if(res){
-        this.setState({currentUser: res.user})
+      if(res.user){
+        this.props.setUser({
+          isAuthenticated: true,
+          currentUser: res.user
+        })
       }
     })
   }
 
   render(){
     let rootRoute;
-    if(this.state.isAuthenticated){
+    if(this.props.isAuthenticated){
       rootRoute = (
         <Route
           exact path="/"
@@ -49,7 +43,7 @@ class App extends Component {
       rootRoute = (
         <Route
           exact path="/"
-          render={(props) => <SplashPage {...props} updateAuth={this.checkAuthenticated}/>}
+          render={(props) => <SplashPage {...props} updateAuth={this.getCurrentUser}/>}
         />
       )
     }
@@ -59,11 +53,11 @@ class App extends Component {
           {rootRoute}
           <Route
             path="/login"
-            render={(props) => <SplashPage {...props} checkAuth={this.state.isAuthenticated} updateAuth={this.checkAuthenticated}/>}
+            render={(props) => <SplashPage {...props} checkAuth={this.props.isAuthenticated} updateAuth={this.getCurrentUser}/>}
           />
           <Route
             path="/profile"
-            render={(props) => <Profile checkAuth={this.state.isAuthenticated} {...props} />}
+            render={(props) => <Profile checkAuth={this.props.isAuthenticated} {...props} />}
           />
         </BrowserRouter>
       </div>
@@ -71,4 +65,19 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.isAuthenticated,
+    currentUser: state.currentUser
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser: (user) => dispatch(setUser(user))
+  }
+};
+
+const AuthedApp = connect(mapStateToProps, mapDispatchToProps)(App)
+
+export default AuthedApp;
