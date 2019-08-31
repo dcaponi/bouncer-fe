@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
+
 import './splash-page.css';
 
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
 class SplashPage extends Component {
-  bouncerUrl = process.env.REACT_APP_BOUNCER_URL;
 
-  handleLogin(event){
+  handleLogin = (event) => {
     event.preventDefault();
-
-    fetch(`${this.bouncerUrl}/tokens`, {
+    let bouncerUrl = process.env.REACT_APP_BOUNCER_URL;
+    fetch(`${bouncerUrl}/tokens`, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -24,15 +25,16 @@ class SplashPage extends Component {
         }
       })
     }).then((res) => {
-      return res.json()
+      return res.json();
     }).then((res) => {
-      console.log(res)
+      this.props.updateAuth();
     })
   }
 
-  handleSignup(event){
+  handleSignup = (event) => {
     event.preventDefault();
-    fetch(`${this.bouncerUrl}/users`, {
+    let bouncerUrl = process.env.REACT_APP_BOUNCER_URL;
+    fetch(`${bouncerUrl}/users`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -54,6 +56,9 @@ class SplashPage extends Component {
   }
 
   render(){
+    if(this.props.checkAuth){
+      return(<Redirect to="/profile" />)
+    }
     return (
       <div>
         <div className="splash-page">

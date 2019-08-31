@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-
-import SubmitButton from '../SubmitButton';
+import React from 'react';
+import { Redirect } from "react-router-dom";
+import withAuth from '../hoc/withAuth';
 
 const Profile = (props) => {
   return (
@@ -8,4 +8,6 @@ const Profile = (props) => {
   );
 }
 
-export default Profile;
+const AuthedProfile = withAuth(Profile)
+
+export default AuthedProfile;
