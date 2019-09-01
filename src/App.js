@@ -15,7 +15,7 @@ class App extends Component {
 
   getCurrentUser = () => {
     let bouncerUrl = process.env.REACT_APP_BOUNCER_URL;
-    fetch(`${bouncerUrl}/user`, {
+    return fetch(`${bouncerUrl}/user`, {
       credentials: 'include'
     })
     .then((res) => res.json())
@@ -53,11 +53,11 @@ class App extends Component {
           {rootRoute}
           <Route
             path="/login"
-            render={(props) => <SplashPage {...props} checkAuth={this.props.isAuthenticated} updateAuth={this.getCurrentUser}/>}
+            render={(props) => <SplashPage {...props} updateAuth={this.getCurrentUser}/>}
           />
           <Route
             path="/profile"
-            render={(props) => <Profile checkAuth={this.props.isAuthenticated} {...props} />}
+            render={(props) => <Profile {...props} />}
           />
         </BrowserRouter>
       </div>

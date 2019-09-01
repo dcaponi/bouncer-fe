@@ -5,7 +5,12 @@ import { connect } from "react-redux";
 const Profile = (props) => {
   if( props.isAuthenticated && props.currentUser ) {
     return (
-      <h1>Welcome {props.currentUser.name_first} {props.currentUser.name_last}</h1>
+      <div>
+        <h1>Welcome {props.currentUser.name_first} {props.currentUser.name_last}</h1>
+        <hr/>
+        <h3>Your Apps</h3>
+        <a href={process.env.REACT_APP_RATINGS_URL}>Ratings</a>
+      </div>
     );
   }
   else {

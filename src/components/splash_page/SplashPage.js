@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 
 import './splash-page.css';
 
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
-class SplashPage extends Component {
+class SP extends Component {
+
+  state = {
+    redirectUrl: null
+  }
 
   handleLogin = (event) => {
     event.preventDefault();
@@ -27,7 +32,19 @@ class SplashPage extends Component {
     }).then((res) => {
       return res.json();
     }).then((res) => {
-      this.props.updateAuth();
+      this.props.updateAuth()
+      .then(()=>{
+        if(this.props.location.search && this.props.isAuthenticated){
+          let queryStringParts = this.props.location.search.slice(1).split("=");
+          let parsedQuery = {}
+          for(var i = 0; i < queryStringParts.length - 1; i+=2){
+            parsedQuery[queryStringParts[i]] = queryStringParts[i+1]
+          }
+          if(parsedQuery["redirect"]){
+            window.location.replace(parsedQuery["redirect"])
+          }
+        }
+      })
     })
   }
 
@@ -56,7 +73,7 @@ class SplashPage extends Component {
   }
 
   render(){
-    if(this.props.checkAuth){
+    if(this.props.isAuthenticated){
       return(<Redirect to="/profile" />)
     }
     return (
@@ -75,5 +92,13 @@ class SplashPage extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.isAuthenticated
+  }
+};
+
+const SplashPage = connect(mapStateToProps)(SP)
 
 export default SplashPage;
