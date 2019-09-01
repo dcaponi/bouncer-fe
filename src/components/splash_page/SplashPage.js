@@ -9,10 +9,6 @@ import SignupForm from './SignupForm';
 
 class SP extends Component {
 
-  state = {
-    redirectUrl: null
-  }
-
   handleLogin = (event) => {
     event.preventDefault();
     let bouncerUrl = process.env.REACT_APP_BOUNCER_URL;
