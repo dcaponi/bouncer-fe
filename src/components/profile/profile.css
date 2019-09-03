@@ -1,0 +1,36 @@
+.profile {
+  padding: 20px;
+}
+
+.profile-form {
+  margin-bottom: 20px;
+}
+
+.ratings-link {
+  text-decoration: none;
+  background: #3395D3;
+  color: #FFFFFE;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 5px;
+  display: block;
+}
+
+.profile-label {
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.profile-input {
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.submit-button {
+  padding: 10px;
+  cursor: pointer;
+}

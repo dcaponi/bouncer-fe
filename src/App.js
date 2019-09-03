@@ -29,13 +29,39 @@ class App extends Component {
     })
   }
 
+  updateUser = (event) => {
+    event.preventDefault();
+    let bouncerUrl = process.env.REACT_APP_BOUNCER_URL;
+    fetch(`${bouncerUrl}/user`, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user: {
+          name_first: event.target.children.firstName.value,
+          name_last: event.target.children.lastName.value,
+        }
+      })
+    }).then((res) => {
+      return res.json();
+    }).then((res) => {
+      this.props.setUser({
+        isAuthenticated: true,
+        currentUser: res.user
+      })
+    })
+  }
+
   render(){
     let rootRoute;
     if(this.props.isAuthenticated){
       rootRoute = (
         <Route
           exact path="/"
-          render={(props) => <Profile {...props} />}
+          render={(props) => <Profile {...props} updateUser={this.updateUser} />}
         />
       )
     }
@@ -57,7 +83,7 @@ class App extends Component {
           />
           <Route
             path="/profile"
-            render={(props) => <Profile {...props} />}
+            render={(props) => <Profile {...props} updateUser={this.updateUser} />}
           />
         </BrowserRouter>
       </div>
