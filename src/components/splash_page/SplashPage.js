@@ -6,8 +6,14 @@ import './splash-page.css';
 
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
+import Popup from '../ui-components/popup/popup';
 
 class SP extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {showPopup: false}
+  }
 
   handleLogin = (event) => {
     event.preventDefault();
@@ -62,10 +68,17 @@ class SP extends Component {
         },
       })
     }).then((res) => {
+      if(res.status === 201){
+        this.togglePopup()
+      }
       return res.json()
     }).then((res) => {
       console.log(res)
     })
+  }
+
+  togglePopup = () => {
+    this.setState({showPopup: !this.state.showPopup});
   }
 
   render(){
@@ -75,6 +88,7 @@ class SP extends Component {
     return (
       <div>
         <div className="splash-page">
+          {this.state.showPopup ? <Popup text="Please check your email and confirm your address to continue" close={()=>this.togglePopup}/> : null}
           <div className="form">
             <h4 className="splash-header">Log In</h4>
             <LoginForm handleLogin={this.handleLogin}/>
