@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import "./profile.css";
+import "./profile.scss";
 
 const Profile = (props) => {
   if( props.isAuthenticated && props.currentUser ) {

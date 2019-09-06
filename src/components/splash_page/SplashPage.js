@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import './splash-page.css';
+import './splash-page.scss';
 
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';

@@ -17,12 +17,11 @@
   flex-grow: 1;
   display: inline;
   text-align: center;
-}
+  input[type="email"] {
+    min-width: 200px;
+  }
 
-input[type="email"] {
-  min-width: 200px;
-}
-
-input[type="password"] {
-  min-width: 200px;
+  input[type="password"] {
+    min-width: 200px;
+  }
 }

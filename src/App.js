@@ -5,7 +5,7 @@ import Profile from './components/profile/Profile';
 import { connect } from "react-redux";
 import { setUser } from "./redux/actions"
 
-import './App.css';
+import './App.scss';
 
 class App extends Component {
   constructor(props){
