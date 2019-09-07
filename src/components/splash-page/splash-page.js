@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import './splash-page.scss';
-
-import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
+import AppWrapper from '../../ui-components/app-wrapper/app-wrapper'
+import LoginForm from '../ui-components/login-form/login-form';
+import SignupForm from '../ui-components/signup-form/signup-form';
 import Popup from '../ui-components/popup/popup';
 
 class SP extends Component {
@@ -86,7 +85,7 @@ class SP extends Component {
       return(<Redirect to="/profile" />)
     }
     return (
-      <div>
+      <AppWrapper>
         <div className="splash-page">
           {this.state.showPopup ? <Popup text="Please check your email and confirm your address to continue" close={()=>this.togglePopup}/> : null}
           <div className="form">
@@ -98,7 +97,7 @@ class SP extends Component {
             <SignupForm className="form" handleSignup={this.handleSignup}/>
           </div>
         </div>
-      </div>
+      </AppWrapper>
     )
   }
 }

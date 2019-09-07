@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SubmitButton from '../SubmitButton';
+import SubmitButton from '../submit-button/submit-button';
 
 const LoginForm = (props) => {
   return (

@@ -1,0 +1,11 @@
+// import variables
+@import 'styles/colors';
+
+// Import the various component sheets
+@import "app";
+@import "components/profile/profile";
+@import "components/splash-page/splash-page";
+@import "components/ui-components/popup/popup";
+@import "ui-components/app-wrapper/app-wrapper";
+@import "ui-components/header/header";
+@import "ui-components/left-rail/left-rail";

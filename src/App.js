@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
-import SplashPage from './components/splash_page/SplashPage';
+import SplashPage from './components/splash-page/splash-page';
 import Profile from './components/profile/Profile';
 import { connect } from "react-redux";
 import { setUser } from "./redux/actions"
 
-import './App.scss';
+import './main.scss';
 
 class App extends Component {
   constructor(props){
@@ -74,7 +74,7 @@ class App extends Component {
       )
     }
     return (
-      <div className="App">
+      <div>
         <BrowserRouter>
           {rootRoute}
           <Route
