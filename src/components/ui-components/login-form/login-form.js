@@ -4,13 +4,11 @@ import SubmitButton from '../submit-button/submit-button';
 
 const LoginForm = (props) => {
   return (
-    <div>
-      <form onSubmit={props.handleLogin}>
-        <input placeholder="Email" type="email" name="emailAddress"/><br/>
-        <input placeholder="Password" type="password" name="password"/><br/>
-        <SubmitButton text="Log In"/>
-      </form>
-    </div>
+    <form onSubmit={props.handleLogin}>
+      <input placeholder="Email" type="email" name="emailAddress"/><br/>
+      <input placeholder="Password" type="password" name="password"/><br/>
+      <SubmitButton text="Log In"/>
+    </form>
   );
 }
 export default LoginForm;
