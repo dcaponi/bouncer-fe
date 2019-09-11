@@ -1,31 +1,11 @@
 import React, { Component } from 'react';
-import Header from '../header/header';
+import Header from '../../ui-components/header/header';
 // import LeftRail from '../left-rail/left-rail';
+import withUser from '../../HOC/with-user';
 import { connect } from "react-redux";
-import { setUser } from "../../redux/actions";
 
 class AW extends Component {
 
-  constructor(props){
-    super(props);
-    this.getCurrentUser();
-  }
-
-  getCurrentUser = () => {
-    let bouncerUrl = process.env.REACT_APP_BOUNCER_URL;
-    fetch(`${bouncerUrl}/user`, {
-      credentials: 'include'
-    })
-    .then((res) => res.json())
-    .then((res) => {
-      if(res.user){
-        this.props.setUser({
-          isAuthenticated: true,
-          currentUser: res.user
-        })
-      }
-    })
-  }
   render(){
     return(
       <div className="App">
@@ -48,12 +28,6 @@ const mapStateToProps = (state) => {
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUser: (user) => dispatch(setUser(user))
-  }
-};
-
-const AppWrapper = connect(mapStateToProps, mapDispatchToProps)(AW)
+const AppWrapper = withUser(connect(mapStateToProps)(AW))
 
 export default AppWrapper

@@ -3,15 +3,21 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import AppWrapper from '../../ui-components/app-wrapper/app-wrapper'
-import LoginForm from '../ui-components/login-form/login-form';
-import SignupForm from '../ui-components/signup-form/signup-form';
-import Popup from '../ui-components/popup/popup';
+import LoginForm from '../../ui-components/login-form/login-form';
+import SignupForm from '../../ui-components/signup-form/signup-form';
+import Popup from '../../ui-components/popup/popup';
+import { setUser } from "../../redux/actions"
 
 class SP extends Component {
 
   constructor(props){
     super(props);
-    this.state = {showPopup: false}
+    this.state = {
+      confirmEmail: false,
+      wrongPassword: false,
+      userExists: false,
+      mismatchPassword: false
+    }
   }
 
   handleLogin = (event) => {
@@ -31,11 +37,8 @@ class SP extends Component {
         }
       })
     }).then((res) => {
-      return res.json();
-    }).then((res) => {
-      this.props.updateAuth()
-      .then(()=>{
-        if(this.props.location.search && this.props.isAuthenticated){
+      if(res.status === 200){
+        if(this.props.location.search){
           let queryStringParts = this.props.location.search.slice(1).split("=");
           let parsedQuery = {}
           for(var i = 0; i < queryStringParts.length - 1; i+=2){
@@ -45,7 +48,13 @@ class SP extends Component {
             window.location.replace(parsedQuery["redirect"])
           }
         }
-      })
+        this.props.setUser({
+          isAuthenticated: true
+        })
+      }
+      else {
+        this.setState({...this.state, wrongPassword: true})
+      }
     })
   }
 
@@ -68,26 +77,38 @@ class SP extends Component {
       })
     }).then((res) => {
       if(res.status === 201){
-        this.togglePopup()
+        this.setState({...this.state, confirmEmail: true})
       }
       return res.json()
     }).then((res) => {
-      console.log(res)
+      if(res.error) {
+        this.setState({...this.state, userExists: true})
+      }
+      if(res.unauthorized){
+        this.setState({...this.state, wrongPassword: true})
+      }
+      if(res.password_confirmation){
+        this.setState({...this.state, mismatchPassword: true})
+      }
     })
   }
 
-  togglePopup = () => {
-    this.setState({showPopup: !this.state.showPopup});
-  }
+  resetConfirmEmail = () => this.setState({...this.state, confirmEmail: false})
+  resetUnauthorized = () => this.setState({...this.state, wrongPassword: false})
+  resetMismatch = () => this.setState({...this.state, mismatchPassword: false})
+  resetUserExists = () => this.setState({...this.state, userExists: false})
 
   render(){
     if(this.props.isAuthenticated){
-      return(<Redirect to="/profile" />)
+      return <Redirect to="/profile" />
     }
     return (
       <AppWrapper>
         <div className="splash-page">
-          {this.state.showPopup ? <Popup text="Please check your email and confirm your address to continue" close={()=>this.togglePopup}/> : null}
+          {this.state.confirmEmail ? <Popup text="Please check your email and confirm your address to continue" close={this.resetConfirmEmail}/> : null}
+          {this.state.wrongPassword ? <Popup text="Wrong password given" close={this.resetUnauthorized}/> : null}
+          {this.state.mismatchPassword ? <Popup text="Password and Password Confirmation do not match" close={this.resetMismatch}/> : null}
+          {this.state.userExists ? <Popup text="User with that email already exists" close={this.resetUserExists}/> : null}
           <div className="form">
             <h4 className="splash-header">Log In</h4>
             <LoginForm handleLogin={this.handleLogin}/>
@@ -108,6 +129,12 @@ const mapStateToProps = (state) => {
   }
 };
 
-const SplashPage = connect(mapStateToProps)(SP)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser: (user) => dispatch(setUser(user))
+  }
+};
+
+const SplashPage = connect(mapStateToProps, mapDispatchToProps)(SP)
 
 export default SplashPage;

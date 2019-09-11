@@ -2,8 +2,19 @@
   padding: 30px;
 }
 
-.profile-form {
-  margin-bottom: 30px;
+.profile-forms {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+@media (max-width: 500px) {
+  .profile-forms {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .ratings-link {
@@ -14,23 +25,4 @@
   margin: 20px;
   border-radius: 5px;
   display: block;
-}
-
-.profile-label {
-  margin-top: 10px;
-  margin-right: 20px;
-  margin-bottom: 10px;
-  display: block;
-}
-
-.profile-input {
-  margin-top: 10px;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  display: block;
-}
-
-.submit-button {
-  padding: 10px;
-  cursor: pointer;
 }
