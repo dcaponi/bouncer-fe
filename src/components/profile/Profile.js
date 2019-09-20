@@ -144,6 +144,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-const AuthedProfile = withUser(connect(mapStateToProps, mapDispatchToProps)(Profile))
+Profile = withUser(connect(mapStateToProps, mapDispatchToProps)(Profile));
 
-export default AuthedProfile;
+export default Profile;

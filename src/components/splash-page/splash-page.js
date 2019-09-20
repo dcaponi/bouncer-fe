@@ -8,7 +8,7 @@ import SignupForm from '../../ui-components/signup-form/signup-form';
 import Popup from '../../ui-components/popup/popup';
 import { setUser } from "../../redux/actions"
 
-class SP extends Component {
+class SplashPage extends Component {
 
   constructor(props){
     super(props);
@@ -135,6 +135,6 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-const SplashPage = connect(mapStateToProps, mapDispatchToProps)(SP)
+SplashPage = connect(mapStateToProps, mapDispatchToProps)(SplashPage)
 
 export default SplashPage;

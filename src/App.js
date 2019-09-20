@@ -27,6 +27,6 @@ const mapStateToProps = (state) => {
   return { isAuthenticated: state.isAuthenticated }
 };
 
-const AuthedApp = connect(mapStateToProps)(App)
+App = connect(mapStateToProps)(App)
 
-export default AuthedApp;
+export default App;

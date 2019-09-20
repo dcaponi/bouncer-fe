@@ -4,7 +4,7 @@ import Header from '../../ui-components/header/header';
 import withUser from '../../HOC/with-user';
 import { connect } from "react-redux";
 
-class AW extends Component {
+class AppWrapper extends Component {
 
   render(){
     return(
@@ -28,6 +28,6 @@ const mapStateToProps = (state) => {
   }
 };
 
-const AppWrapper = withUser(connect(mapStateToProps)(AW))
+AppWrapper = withUser(connect(mapStateToProps)(AppWrapper))
 
 export default AppWrapper
