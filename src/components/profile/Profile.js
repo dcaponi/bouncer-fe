@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { setUser } from "../../redux/actions"
-import withUser from '../../HOC/with-user';
+import withAuthenticatedUser from '../../HOC/with-authenticated-user';
 import AppWrapper from '../../ui-components/app-wrapper/app-wrapper'
 import ProfileForm from '../../ui-components/profile-form/profile-form';
 import Popup from '../../ui-components/popup/popup'
@@ -131,19 +129,6 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.isAuthenticated,
-    currentUser: state.currentUser
-  }
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUser: (user) => dispatch(setUser(user))
-  }
-};
-
-Profile = withUser(connect(mapStateToProps, mapDispatchToProps)(Profile));
+Profile = withAuthenticatedUser(Profile);
 
 export default Profile;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { setUser } from "../redux/actions";
 
-function withUser(WrappedComponent) {
+function withAuthenticatedUser(WrappedComponent) {
   class HOC extends Component {
 
     constructor(props){
@@ -47,4 +47,4 @@ function withUser(WrappedComponent) {
   return connect(mapStateToProps, mapDispatchToProps)(HOC)
 }
 
-export default withUser;
+export default withAuthenticatedUser;

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import withAuthenticatedUser from '../../HOC/with-authenticated-user';
 
 import AppWrapper from '../../ui-components/app-wrapper/app-wrapper'
 import LoginForm from '../../ui-components/login-form/login-form';
 import SignupForm from '../../ui-components/signup-form/signup-form';
 import Popup from '../../ui-components/popup/popup';
-import { setUser } from "../../redux/actions"
 
 class SplashPage extends Component {
 
@@ -79,7 +78,6 @@ class SplashPage extends Component {
       if(res.status === 201){
         this.setState({...this.state, confirmEmail: true})
       }
-      return res.json()
     }).then((res) => {
       if(res.error) {
         this.setState({...this.state, userExists: true})
@@ -123,18 +121,6 @@ class SplashPage extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: state.isAuthenticated
-  }
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUser: (user) => dispatch(setUser(user))
-  }
-};
-
-SplashPage = connect(mapStateToProps, mapDispatchToProps)(SplashPage)
+SplashPage = withAuthenticatedUser(SplashPage)
 
 export default SplashPage;

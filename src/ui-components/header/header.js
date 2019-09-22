@@ -1,11 +1,13 @@
 import React from 'react';
-const Header = (props) => {
+import withAuthenticatedUser from '../../HOC/with-authenticated-user';
+
+let Header = (props) => {
   let linkString = process.env.REACT_APP_LOGIN_URL + "/login";
   let userNameString = "Log In"
 
-  if(props.user){
+  if(props.currentUser){
     linkString = process.env.REACT_APP_LOGIN_URL + "/profile";
-    userNameString = props.user.name_first + " " + props.user.name_last;
+    userNameString = props.currentUser.name_first + " " + props.currentUser.name_last;
   }
   return (
     <header className="header">
@@ -19,5 +21,7 @@ const Header = (props) => {
     </header>
   );
 }
+
+Header = withAuthenticatedUser(Header)
 
 export default Header
